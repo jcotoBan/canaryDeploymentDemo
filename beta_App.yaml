@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: beta
+    deployment: canary
+  name: beta
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beta
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: beta
+        deployment: canary
+    spec:
+      containers:
+      - image: kodekloud/webapp-color
+        name: webapp-color
+        ports: 
+        - containerPort: 8080
+        env:
+        - name: APP_COLOR
+          value: blue
+        resources: {}
+status: {}

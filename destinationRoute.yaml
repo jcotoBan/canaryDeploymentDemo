@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: canarydr
+spec:
+  host: canary
+  subsets:
+  - name: alpha
+    labels:
+      app: alpha
+  - name: beta
+    labels:
+      app: beta
