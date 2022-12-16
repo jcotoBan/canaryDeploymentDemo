@@ -32,7 +32,7 @@ In this post, two ways of setting up a deployment will be shown. One is more bas
 
 The most rudimentary way to apply a canary strategy is by having separate deployments with a certain amount of pods each and a service that routes to each of the deployments. In order to balance the load accordingly more replicas will be added to one deployment (this will be the beta or current release) while the other will be left with less replicas (the alpha one). To differentiate the apps, a different color and title are added to a simple webpage:
 
- <img width="362" alt="image" src="https://user-images.githubusercontent.com/73861871/208133458-6027e0d9-3e7f-4f17-991e-8acc73ceed58.png">
+<img width="362" alt="image" src="https://user-images.githubusercontent.com/73861871/208133458-6027e0d9-3e7f-4f17-991e-8acc73ceed58.png">
 
 <img width="408" alt="image" src="https://user-images.githubusercontent.com/73861871/208133466-79b483e1-33f9-4cde-bdaa-927c1960fc31.png">
  
@@ -56,7 +56,9 @@ For ease of testing, a nodeport kind of service will be used, which means we can
 
 To Deploy the objects:
 
+```
 kubectl apply -f alpha_App.yaml
+```
 
 Or, if you want to use a custom namespace (default will be used if not specified)
 
