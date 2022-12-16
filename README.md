@@ -62,14 +62,15 @@ kubectl apply -f alpha_App.yaml
 
 Or, if you want to use a custom namespace (default will be used if not specified)
 
+```
 kubectl apply -f alpha_App.yaml -n=canaryns
+```
 
 <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134071-f89e5350-d7a1-48bd-8275-aa9b35e4a2e2.png">
 
+When the two deployments are created, you can verify them with the kubectl get deploy command:
 
- When the two deployments are created, you can verify them with the kubectl get deploy command:
-
- <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134097-2e44858e-5e95-483e-94b2-e1813bdf7cae.png">
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134097-2e44858e-5e95-483e-94b2-e1813bdf7cae.png">
 
 
 Then you should see 7 beta pods and 3 alpha with kubectl get pods command (make sure to edit the replica numbers):
@@ -79,19 +80,19 @@ Then you should see 7 beta pods and 3 alpha with kubectl get pods command (make 
  
 Then, we proceed to apply the service as well:
 
- <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134186-fdbacb93-dd2f-4c1f-8cc2-13908e5074dc.png">
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134186-fdbacb93-dd2f-4c1f-8cc2-13908e5074dc.png">
 
 
 And then with the command kubectl get svc canary, we will verify it:
 
- <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134201-30cd8313-72d2-4d81-876e-0b226cb6a4bc.png">
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134201-30cd8313-72d2-4d81-876e-0b226cb6a4bc.png">
 
 
 TYPE should be NodePort, and the port binding should be 8080:31000.
 
 Then, we will verify the endpoints for the canary deployment, there should be 10 (one per pod):
 
- <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134238-2357db59-a470-40dc-9b5c-cf9341b196cb.png">
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134238-2357db59-a470-40dc-9b5c-cf9341b196cb.png">
 
 
 If the endpoints are not correctly displayed the service’s routing wont work.
@@ -99,14 +100,16 @@ If the endpoints are not correctly displayed the service’s routing wont work.
 Then, if everything at this point has set correctly, you can check any of your node ips, go to your browser and verify the service is working:
 
  
-
- <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134263-a97876a3-311c-4018-968a-44ec3fef027a.png">
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134263-a97876a3-311c-4018-968a-44ec3fef027a.png">
 <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134281-1caa54b2-b207-471e-a430-3e40f1d87ff1.png">
 
 
 
 To control the number of replicas you can edit the files and apply them again, or edit the runtime deployment with kubectl edit deploy command:
 
+```
+kubectl edit deploy
+```
 
 <img width="416" alt="image" src="https://user-images.githubusercontent.com/73861871/208134309-dd126d5c-da08-494f-b3e4-fcab512f0124.png">
 
@@ -141,28 +144,33 @@ Create a namespace for the istio setup:
 kubectl create namespace istio-system
 
 Install base chart:
-
+```
 helm install istio-base istio/base -n istio-system
+```
 
 Install the Istio discovery chart which deploys the istiod service:
 
+```
 helm install istiod istio/istiod -n istio-system --wait
+```
 
 Install the ingress gateway:
 
+```
 kubectl create namespace istio-ingress
 helm install istio-ingressgateway istio/gateway -n istio-ingress
+```
 
 To verify the istio base installation:
 
- <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134636-7b04403e-b431-467d-91bf-a553e4f00b4e.png">
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134636-7b04403e-b431-467d-91bf-a553e4f00b4e.png">
 
 
 Verify the gateway was installed and is running (it is a service), you can run command:
 
 kubectl get svc istio-ingressgateway -n=istio-ingress
 
- <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134708-9beb7cd5-c91f-4630-8633-12239bb55a96.png">
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134708-9beb7cd5-c91f-4630-8633-12239bb55a96.png">
 
 
 Then, we will need to create 3 new objects for the gateway to work and route the traffic correctly. These objects are specific to the Istio API.
@@ -185,7 +193,7 @@ After you have applied these resources, you can verify them with kubectl:
 
 <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134940-17aac112-c8c9-4674-b322-3fec010faad0.png">
 
- <img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134949-f55c046c-2d74-4f32-8573-56c1ad887602.png">
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208134949-f55c046c-2d74-4f32-8573-56c1ad887602.png">
 
 
 Then, how do we access the service?
