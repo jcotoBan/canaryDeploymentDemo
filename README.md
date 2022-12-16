@@ -197,9 +197,8 @@ In this case, it was runned on a manually created cluster, so the service was ed
 
 So, what should you expect to see? Even though each deployment has the same number of replicas, 90% of the time we should get the traffic routed to our beta release:
 
- 
+<img width="468" alt="image" src="https://user-images.githubusercontent.com/73861871/208135084-886f799f-04dd-4bb7-8e98-25a2da0b1836.png">
 
-![image](https://user-images.githubusercontent.com/73861871/208133231-ea11fd8e-4dca-4163-af49-2485d7c3f31b.png)
 
 
 
